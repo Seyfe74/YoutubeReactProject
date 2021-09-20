@@ -3,7 +3,7 @@ import React from "react"
 const Video = (props) => {
     //const vidId = props.video.id.videoId;
     const videoSrc = `https://www.youtube.com/embed/${props.vidId}`;
-    console.log(props.vidId);
+    //console.log(props.vidId);
 
    //const videoSrc = 'https://www.youtube.com/embed/cUIWYtAcoZE'
     return (

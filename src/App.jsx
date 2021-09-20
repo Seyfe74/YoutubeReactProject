@@ -10,9 +10,11 @@ function App(props) {
 
   async function fetchVideos() {
     let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?q=${filteredVideo}&key=AIzaSyBYQEcEnWgdhYikm7boJwGC-6Nj3KYaAJ8`)  // update url
+    console.log (response); 
     setVideos(response.data.items);
-    selectVideosId = response.data.items[0].id.videoId; 
-    setVideoId(response.data.items[0].id.videoId);
+    //selectVideosId = response.data.items[0].id.videoId; 
+    setVideoId(videos.id.videoId);
+    
     
   }
 
@@ -33,7 +35,9 @@ useEffect(() => {
   let mounted = true;
   if(mounted){
   fetchVideos();
-  console.log (selectVideosId)  
+  
+  console.log (videos); 
+  console.log(selectVideosId); 
   }
   return () => mounted = false;
 }, [])
@@ -47,8 +51,7 @@ return (
      
 
     {<VideoResult mapVideos={() => mapVideos()} /> }
-    {<Video   vidId={() =>setVideoId(selectVideosId)} 
-       /> }
+    {<Video   vidId= {selectVideosId} /> }
      
       </div>
     );
