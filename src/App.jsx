@@ -12,16 +12,17 @@ import VideoResult from './components/VideoResult';
 function App(props) {
   const [videos, setVideos] = useState([]);
   const [filteredVideo, filterVideos] = useState('Cat videos');
-  
+  debugger;
   async function fetchVideos() {
-    let response = await axios.get(`https://youtube.com.googleapis.com/youtube/v3/search?${filteredVideo}`)  // update url
-    setVideos(response.data.results);
+    let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?q=${filteredVideo}&key=AIzaSyBYQEcEnWgdhYikm7boJwGC-6Nj3KYaAJ8`)  // update url
+    setVideos(response.data.items);
   }
 
   function mapVideos(){
     return videos.map(video =>
     <Video
-      key={video.videoID}
+      key={video.id.videoId}
+      
       video={video}
       />
       )
@@ -43,6 +44,7 @@ useEffect(() => {
 return (
   <div>
     {<VideoResult mapVideos={() => mapVideos()} /> }
+    {<Video  />}
       </div>
     );
   }

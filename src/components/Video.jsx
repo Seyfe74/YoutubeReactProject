@@ -1,9 +1,10 @@
 import React from "react"
 
 const Video = (props) => {
+    const videoSrc = `https://www.youtube.com/embed/${props.video}`;
     return (
-        <iFrame>
-            {/* html goes here */}
+        <iFrame width="420" height="315" src= { videoSrc}>
+           
         </iFrame> 
     );
 }

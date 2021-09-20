@@ -6,10 +6,10 @@ const VideoResult = (props) =>{
         <table className="table">
             <thead>
                 <tr>
-                    <th> Video Name</th>
+                    <th> {props.video}Video Name</th>
                 </tr>
             </thead>
-            {props.mapVideos()}
+           {props.mapVideos()}
         </table>
     );
     
