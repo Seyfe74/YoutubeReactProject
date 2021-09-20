@@ -7,14 +7,14 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import Video from './components/Video';
-import VideoResult './components/VideoResult'
+import VideoResult from './components/VideoResult';
 
 function App(props) {
   const [videos, setVideos] = useState([]);
-  const [filteredVideo, filterVideos] = useState(); //search variable inside()?
+  const [filteredVideo, filterVideos] = useState('Cat videos');
   
   async function fetchVideos() {
-    let response = await axios.get(`https://youtube.com`)  // update url
+    let response = await axios.get(`https://youtube.com.googleapis.com/youtube/v3/search?${filteredVideo}`)  // update url
     setVideos(response.data.results);
   }
 
@@ -42,7 +42,7 @@ useEffect(() => {
 
 return (
   <div>
-    {<Video mapvideos={()} => mapVideos()} /> }
+    {<VideoResult mapVideos={() => mapVideos()} /> }
       </div>
     );
   }
