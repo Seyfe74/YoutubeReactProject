@@ -14,10 +14,14 @@ const Video = ({ video }) => {
    //const videoSrc = 'https://www.youtube.com/embed/cUIWYtAcoZE'
     return (
         <div>
-        <iFrame width="420" height="315" src= {videoSrc}>           
-        </iFrame> 
-        <h2> {}</h2>
-
+          <iFrame width="420" height="315" src= {videoSrc}>           
+          </iFrame> 
+          
+          <div className="ui segment">
+            <h4 className="ui header">{video.snippet.title}</h4>
+            <p>{video.snippet.description}</p>
+          </div>
+          
         </div>
     );
 }
