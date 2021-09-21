@@ -1,61 +1,45 @@
-import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+import React from 'react';
 import Video from './components/Video';
-import VideoResult from './components/VideoResult';
+import SearchBar from './components/SearchBar';
+import youtube from './api/youtube';
+import VideoList from './components/VideoList';
 
-function App(props) {
-  const [videos, setVideos] = useState([]);
-  const [selectVideosId, setVideoId] = useState([]);
-  const [filteredVideo, filterVideos] = useState('Basketball');
-
-  async function fetchVideos() {
-    let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?q=${filteredVideo}&key=AIzaSyBYQEcEnWgdhYikm7boJwGC-6Nj3KYaAJ8`)  // update url
-    console.log (response); 
-    setVideos(response.data.items);
-    //selectVideosId = response.data.items[0].id.videoId; 
-    setVideoId(videos.id.videoId);
-    
-    
+class App extends React.Component {
+  state = {
+      videos: [],
+      selectedVideo: null
   }
+  handleSubmit = async (searchTerm) => {
 
-  function mapVideos(){
-    return videos.map(video =>
-    <Video
-      key={video.id.videoId}
-      
-      video={video}
-     
-      />
-      )
-     
+    const response = await youtube.get('/search', {
+        params: {
+            q: searchTerm
+        }
+    })
+
+
+      this.setState({
+          videos: response.data.items
+      })
+      //console.log("this is resp",response);
+  };
+  handleVideoSelect = (video) => {
+      this.setState({selectedVideo: video})
   }
-
-
-useEffect(() => {
-  let mounted = true;
-  if(mounted){
-  fetchVideos();
-  
-  console.log (videos); 
-  console.log(selectVideosId); 
-  }
-  return () => mounted = false;
-}, [])
-
-
-// import video player functional component to this?
-
-
+render() {
 return (
   <div>
      
 
-    {<VideoResult mapVideos={() => mapVideos()} /> }
-    {<Video   vidId= {selectVideosId} /> }
+    <SearchBar handleFormSubmit={this.handleSubmit}/>
+    <Video   video={this.state.selectedVideo}/> 
+    <VideoList handleVideoSelect={this.handleVideoSelect} videos={this.state.videos}/>
      
       </div>
-    );
+   )
   }
+  
+}
 
 
 export default App;
