@@ -1,38 +1,19 @@
-import React , {useState}from 'react'
-import axios from 'axios';
+import React from 'react';
 
-function Comments(props) {
+
+const Comments=({handleChange, onSubmit}) => {
     
-    const [Comment, setComment] = useState("")
-
-    const handleChange = (e) => {
-        setComment(e.currentTarget.value)
-    }
     
-    const onSubmit = (e) => {
-        e.preventDefault();
-
-        const variables = { 
-            content: Comment,           
-            videoId: props.videoId   
-         }
-
-         axios.post('', variables)
-        .then(response=> {
-            if(response.data.success) {
-                console.log('Comment posted successfuly')
-            } else {
-                alert('Failed to save Comment')
-            }
-           
-        })
-    }
     return (
-        <div>
-     <Video  onSubmit={onSubmit} onClick={onSubmit} onChange={handleChange} />  
-            
+        
+        <form onSubmit={onSubmit}>
+        <label>
+         Enter Comments here ....
+          <textarea  onChange={handleChange} type="text" />
+        </label>
+        <input type="submit" value="Submit" onSubmit={onSubmit} />
+      </form>
 
-        </div>
     )
 }
 
